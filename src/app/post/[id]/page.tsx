@@ -13,7 +13,7 @@ export default function PostDetailPage() {
   const newPosts = posts?.Posts?.filter((post) => post.types === TYPE_POST.NEWS)
 
   const params = useParams()
-  const { data } = useFetchDetailPost((params?.id as string) || '', {
+  const { data }: any = useFetchDetailPost((params?.id as string) || '', {
     enabled: !!params?.id
   })
   const post = data?.post as IPost

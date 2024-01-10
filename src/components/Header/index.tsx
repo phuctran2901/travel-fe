@@ -23,7 +23,7 @@ export default function Header() {
         <Logo />
         <NavigationMenu>
           <NavigationMenuList>
-            {MENU_NAVIGATION.map((menu) => (
+            {MENU_NAVIGATION.map((menu: any) => (
               <NavigationMenuItem key={menu.to} className='text-primary-color'>
                 {menu?.children?.length > 0 ? (
                   <NavigationMenuTrigger className='font-bold'>

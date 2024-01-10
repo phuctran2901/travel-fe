@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button'
 import { cx } from 'class-variance-authority'
 import api from '@/config/api'
 import TextArea from 'antd/es/input/TextArea'
-import CustomInputNumber from './CustomInputNumber'
-import { LABEL_PRICE, PaymentType } from './page'
+import CustomInputNumber, { Label } from './CustomInputNumber'
+import { PaymentType } from './page'
 import { IProduct } from '@/types/Product'
 import { FormInstance, useForm } from 'antd/es/form/Form'
 import { ICode } from '@/types/Discount'
@@ -202,32 +202,20 @@ export default function FormPayment({
       <div>
         <Row gutter={20}>
           <Col span={12}>
+            <CustomInputNumber label={'audult'} name={'audult'} form={form} />
+          </Col>
+          <Col span={12}>
+            <CustomInputNumber label={'child'} name={'child'} form={form} />
+          </Col>
+          <Col span={12}>
             <CustomInputNumber
-              label={LABEL_PRICE.AUDULT}
-              name={LABEL_PRICE.AUDULT}
+              label={'children'}
+              name={'children'}
               form={form}
             />
           </Col>
           <Col span={12}>
-            <CustomInputNumber
-              label={LABEL_PRICE.CHILD}
-              name={LABEL_PRICE.CHILD}
-              form={form}
-            />
-          </Col>
-          <Col span={12}>
-            <CustomInputNumber
-              label={LABEL_PRICE.CHILDREN}
-              name={LABEL_PRICE.CHILDREN}
-              form={form}
-            />
-          </Col>
-          <Col span={12}>
-            <CustomInputNumber
-              label={LABEL_PRICE.INFANT}
-              name={LABEL_PRICE.INFANT}
-              form={form}
-            />
+            <CustomInputNumber label={'infant'} name={'infant'} form={form} />
           </Col>
         </Row>
       </div>

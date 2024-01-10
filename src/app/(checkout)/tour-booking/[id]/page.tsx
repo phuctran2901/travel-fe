@@ -38,12 +38,6 @@ import { Button } from '@/components/ui/button'
 import { ICode } from '@/types/Discount'
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || '')
-export const LABEL_PRICE = Object.freeze({
-  AUDULT: 'audult',
-  CHILD: 'child',
-  CHILDREN: 'children',
-  INFANT: 'infant'
-})
 
 export type PaymentType = 'card' | 'cash' | 'qr'
 
@@ -51,10 +45,10 @@ export default function TourBooking() {
   const [paymentType, setPaymentType] = useState<PaymentType>('card')
   const params = useParams()
   const [form] = useForm()
-  const watchPriceChild = useWatch(LABEL_PRICE.CHILD, form)
-  const watchPriceAudult = useWatch(LABEL_PRICE.AUDULT, form)
-  const watchPriceChildren = useWatch(LABEL_PRICE.CHILDREN, form)
-  const watchPriceInfant = useWatch(LABEL_PRICE.INFANT, form)
+  const watchPriceChild = useWatch('child', form)
+  const watchPriceAudult = useWatch('audult', form)
+  const watchPriceChildren = useWatch('children', form)
+  const watchPriceInfant = useWatch('infant', form)
   const { data }: any = useFetchProductDetail((params?.id as string) || '')
   const product: IProduct | undefined = data?.product
   const startDate = useMommentLocaleVi(product?.startDate || '', 'll')

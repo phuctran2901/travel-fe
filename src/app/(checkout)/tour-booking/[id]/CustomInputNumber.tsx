@@ -25,16 +25,12 @@ export const LABEL = {
 export type Label = 'audult' | 'child' | 'children' | 'infant'
 
 interface IProps {
-  label: Label
+  label: Label | 'audult'
   name: string
   form: FormInstance<any>
 }
 
-export default function CustomInputNumber({
-  name,
-  form,
-  label
-}: Partial<IProps>) {
+export default function CustomInputNumber({ name, form, label }: IProps) {
   const [value, setValue] = useState(0)
 
   useEffect(() => {

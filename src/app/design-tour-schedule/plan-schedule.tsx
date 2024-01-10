@@ -9,10 +9,12 @@ import moment from 'moment'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 export interface Props {
+  setSchedule?: React.Dispatch<React.SetStateAction<never[]>>
   schedule: Array<Schedule>
+  onDragEnd?: any
+  startDate?: string
 }
-const GoTour = ({ schedule }: Props) => {
-  const onDragEnd = () => {}
+const GoTour = ({ schedule, setSchedule, onDragEnd }: Props) => {
   return (
     <div>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -22,7 +24,7 @@ const GoTour = ({ schedule }: Props) => {
               {schedule.map((item, index) => (
                 <Draggable
                   key={item.location.locationName}
-                  draggableId={index.toString()}
+                  draggableId={item.date}
                   index={index}
                 >
                   {(provided, snapshot) => (
@@ -48,7 +50,7 @@ const GoTour = ({ schedule }: Props) => {
                         </p>
                         <div className={cn('font-bold')}>
                           <p className={cn('text-xs mb-2')}>
-                            {moment(item.date, 'DDMMYYYY').format('DD/MM/YYYY')}
+                            {/* {moment(item.date, 'DDMMYYYY').format('DD/MM/YYYY')} */}
                           </p>
                           <p>{item?.location?.locationName}</p>
                         </div>
@@ -92,22 +94,41 @@ const GoTour = ({ schedule }: Props) => {
   )
 }
 
-const TimeLineTour = ({ schedule }: Props) => {
+const TimeLineTour = ({ schedule, startDate }: Props) => {
   return (
     <div>
       {schedule?.map((s, i) => {
-        return <TimeLineItem key={s?.index?.toString()} item={s} index={i} />
+        return (
+          <TimeLineItem
+            key={s?.index?.toString()}
+            item={s}
+            index={i}
+            startDate={startDate}
+          />
+        )
       })}
     </div>
   )
 }
 
-const TimeLineItem = ({ item, index }: { item: Schedule; index: number }) => {
+const TimeLineItem = ({
+  item,
+  index,
+  startDate
+}: {
+  item: Schedule
+  index: number
+  startDate?: string
+}) => {
+  console.log(startDate)
   return (
     <div className={cn('mb-4')}>
       <h3 className={cn('text-primary-color font-bold text-xl tracking-wider')}>
-        Ngày {index + 1} ({moment(item.date, 'DDMMYYYY').format('DD/MM/YYYY')})
-        - {item.location.locationName}
+        Ngày {index + 1} (
+        {moment(startDate || '', 'DDMMYYYY')
+          .add(index, 'day')
+          .format('DD/MM/YYYY')}
+        ) - {item.location.locationName}
       </h3>
       <div className={cn('relative pl-10 mt-2')}>
         <span
@@ -136,11 +157,16 @@ const TimeLineItem = ({ item, index }: { item: Schedule; index: number }) => {
 }
 
 export default function PlanSchedule({
-  schedule
+  schedule,
+  setSchedule,
+  onDragEnd,
+  startDate
 }: {
   schedule: Array<Schedule>
+  setSchedule: React.Dispatch<React.SetStateAction<never[]>>
+  onDragEnd: (e: any) => void
+  startDate: string
 }) {
-  let scheduleSort = [...schedule?.sort((a, b) => a.index - b.index)]
   return (
     <div
       className={cn(
@@ -148,10 +174,14 @@ export default function PlanSchedule({
       )}
     >
       <div className={cn('bg-[#f9f9f9] col-span-4 p-4')}>
-        <GoTour schedule={scheduleSort} />
+        <GoTour
+          schedule={schedule}
+          setSchedule={setSchedule}
+          onDragEnd={onDragEnd}
+        />
       </div>
       <div className={cn('col-span-8 py-8 px-4')}>
-        <TimeLineTour schedule={scheduleSort} />
+        <TimeLineTour schedule={schedule} startDate={startDate} />
       </div>
     </div>
   )

@@ -19,7 +19,6 @@ export default function useFetchProductDetail(
 ) {
   return useQuery<ProductDetailReponse>({
     queryKey: ['products', id],
-    queryFn: () => getProductDetail(id),
-    ...options
+    queryFn: () => getProductDetail(id)
   })
 }

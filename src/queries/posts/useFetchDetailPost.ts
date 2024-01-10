@@ -22,7 +22,6 @@ export const useFetchDetailPost = (
 ) => {
   return useQuery<PostDetailResponse>({
     queryKey: ['post', id],
-    queryFn: () => getDetailPost(id),
-    ...options
+    queryFn: () => getDetailPost(id)
   })
 }
