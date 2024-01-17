@@ -47,17 +47,49 @@ export default function SearchForm({ setParams, params }: IProps) {
             Số ngày
           </p>
           <div className='flex flex-wrap gap-2'>
-            <div className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'>
-              1 - 3 ngày
+            <div
+              className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'
+              onClick={() => {
+                setParams({
+                  ...params,
+                  duration: '3'
+                })
+              }}
+            >
+              {'>'} 3 ngày
             </div>
-            <div className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'>
-              3 - 5 ngày
+            <div
+              className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'
+              onClick={() => {
+                setParams({
+                  ...params,
+                  duration: '5'
+                })
+              }}
+            >
+              {'>'} 5 ngày
             </div>
-            <div className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'>
-              5 - 7 ngày
+            <div
+              className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'
+              onClick={() => {
+                setParams({
+                  ...params,
+                  duration: '7'
+                })
+              }}
+            >
+              {'>'} 7 ngày
             </div>
-            <div className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'>
-              5 - 10 ngày
+            <div
+              className='shadow-md px-4 py-2 bg-white font-semibold text-center w-[calc(55%-16px)]'
+              onClick={() => {
+                setParams({
+                  ...params,
+                  duration: '10'
+                })
+              }}
+            >
+              {'>'} 10 ngày
             </div>
           </div>
         </div>

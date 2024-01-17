@@ -6,13 +6,14 @@ import PlanSchedule from './plan-schedule'
 import { Col, Form, Input, Row, Spin, message } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
 import { Button } from '@/components/ui/button'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'antd/es/form/Form'
 import api from '@/config/api'
 
 const DesignTourSchedulePage = (props: any) => {
   const [form] = useForm()
   const params = useSearchParams()
+  const router = useRouter()
   const query = {
     tags: params?.get('tags') || '',
     startDate: params?.get('startDate') || '',
@@ -27,7 +28,6 @@ const DesignTourSchedulePage = (props: any) => {
     }
   }, [data])
   const [schedule, setSchedule] = useState([])
-  const [scheduleDrag, setScheduleDrag] = useState([])
 
   function arrayMove(array: any[], fromIndex: number, toIndex: number) {
     const newArray = [...array]
@@ -37,7 +37,6 @@ const DesignTourSchedulePage = (props: any) => {
     return newArray
   }
   const onDragEnd = (e: any) => {
-    console.log(arrayMove(schedule, e?.source?.index, e?.destination?.index))
     setSchedule(
       arrayMove(schedule, e?.source?.index, e?.destination?.index) as any
     )
@@ -53,10 +52,17 @@ const DesignTourSchedulePage = (props: any) => {
     try {
       await createPlanTour({
         ...values,
-        schedule: JSON.stringify(schedule)
+        schedule: JSON.stringify(
+          schedule?.map((s: any, index) => ({
+            index: index,
+            location: s?.location?._id,
+            date: data && data[index]?.date
+          }))
+        )
       })
 
       message.success('Gửi thành công')
+      router.push('/search-tour')
       form.resetFields()
     } catch (err: any) {
       message.error(err.message)
@@ -120,10 +126,7 @@ const DesignTourSchedulePage = (props: any) => {
                   </Form.Item>
                   <Form.Item>
                     <div className='w-full'>
-                      <Button
-                        style={{ width: '100%' }}
-                        onClick={() => form.submit()}
-                      >
+                      <Button style={{ width: '100%' }} type='submit'>
                         Gửi
                       </Button>
                     </div>

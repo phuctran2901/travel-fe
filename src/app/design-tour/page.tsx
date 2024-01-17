@@ -333,7 +333,8 @@ export default function DesignTourPage() {
       <div
         className='transition-width duration-200 ease-in-out h-3'
         style={{
-          background: 'linear-gradient(90deg,#34e0a1,#dfd3ee);'
+          background: 'linear-gradient(90deg,#34e0a1,#dfd3ee);',
+          width: `${(steps + 1) * 25}%`
         }}
       />
       <div className='w-[80%] m-auto py-8'>{STEPS_FORM?.[steps as any]}</div>

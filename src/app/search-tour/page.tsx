@@ -16,8 +16,8 @@ export default function SearchTourPage() {
     sortField: 'price.audult',
     sortOrder: 'asc' as SortEnum,
     maxPrice: 200000000,
-    minPrice: 0
-    // startDate: dayjs().format('DDMMYYYY')
+    minPrice: 0,
+    startDate: dayjs().format('DDMMYYYY')
   })
   const { data, isLoading } = useFetchProducts(params)
 

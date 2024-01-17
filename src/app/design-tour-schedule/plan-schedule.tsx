@@ -23,7 +23,7 @@ const GoTour = ({ schedule, setSchedule, onDragEnd }: Props) => {
             <div {...provided.droppableProps} ref={provided.innerRef}>
               {schedule.map((item, index) => (
                 <Draggable
-                  key={item.location.locationName}
+                  key={item.location?.locationName}
                   draggableId={item.date}
                   index={index}
                 >
@@ -128,7 +128,7 @@ const TimeLineItem = ({
         {moment(startDate || '', 'DDMMYYYY')
           .add(index, 'day')
           .format('DD/MM/YYYY')}
-        ) - {item.location.locationName}
+        ) - {item?.location?.locationName}
       </h3>
       <div className={cn('relative pl-10 mt-2')}>
         <span
@@ -143,12 +143,12 @@ const TimeLineItem = ({
             <Image
               layout='fill'
               objectFit='cover'
-              src={item.location.image}
-              alt={item.location.locationName}
+              src={item.location?.image}
+              alt={item.location?.locationName}
             />
           </div>
           <div
-            dangerouslySetInnerHTML={{ __html: item.location.description }}
+            dangerouslySetInnerHTML={{ __html: item.location?.description }}
           />
         </div>
       </div>
